@@ -41,7 +41,7 @@ http {
     #gzip  on;
     server {
         listen       80;
-        server_name  $your_domain;
+        server_name  $1;
         root /usr/share/nginx/html;
         index index.php index.html index.htm;
     }
@@ -49,17 +49,17 @@ http {
 EOF
 systemctl stop nginx.service
 sleep 5
-green "Apply for a https certificate"
+green "Applying for a https certificate."
 mkdir /usr/src/trojan-cert
 curl https://get.acme.sh | sh
-~/.acme.sh/acme.sh  --issue  -d $domain  --webroot /usr/share/nginx/html/
-    ~/.acme.sh/acme.sh  --installcert  -d  $domain   \
+~/.acme.sh/acme.sh  --issue  -d $1  --webroot /usr/share/nginx/html/
+    ~/.acme.sh/acme.sh  --installcert  -d  $1   \
     --key-file   /usr/src/trojan-cert/private.key \
     --fullchain-file /usr/src/trojan-cert/fullchain.cer \
     --reloadcmd  "systemctl force-reload  nginx.service"
 if test -s /usr/src/trojan-cert/fullchain.cer; then
     green "Certificate OK."
-    green "You should be able to visit https://${domin}:443"
+    green "You should be able to visit https://$1:443"
 fi
 }
 
@@ -97,7 +97,7 @@ else
     red "Check Domin."
     exit
 fi
-configure_nginx
+configure_nginx $domin
 }
 # for test only
-install_trojan
+install_trojan 
