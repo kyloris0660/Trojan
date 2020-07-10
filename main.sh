@@ -67,7 +67,7 @@ if cat /etc/issue | grep -Eqi "debian"; then
 elif cat /etc/issue | grep -Eqi "ubuntu"; then
     release="ubuntu"
 fi
-if [ "$release"!="ubuntu" ]&&[ "$release"!="debian" ]; then
+if [ "$release" != "ubuntu" ]&&[ "$release" != "debian" ]; then
     red "This script cannot be run on this system."
     red "Check OS."
     exit   
@@ -97,3 +97,5 @@ else
 fi
 configure_nginx
 }
+# for test only
+install_trojan
