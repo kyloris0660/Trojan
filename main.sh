@@ -47,13 +47,13 @@ http {
     }
 }
 EOF
-systemctl stop nginx.service
+systemctl restart nginx.service
 sleep 5
 green "Applying for a https certificate."
 mkdir /usr/src/trojan-cert
 curl https://get.acme.sh | sh
-~/.acme.sh/acme.sh  --issue  -d $1  --webroot /usr/share/nginx/html/
-    ~/.acme.sh/acme.sh  --installcert  -d  $1   \
+~/.acme.sh/acme.sh  --issue  -d $1  --standalone
+~/.acme.sh/acme.sh  --installcert  -d  $1   \
     --key-file   /usr/src/trojan-cert/private.key \
     --fullchain-file /usr/src/trojan-cert/fullchain.cer \
     --reloadcmd  "systemctl force-reload  nginx.service"
