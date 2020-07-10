@@ -89,7 +89,7 @@ if [ "$CHECK" == "SELINUX=enforcing" ]||[ "$CHECK" == "SELINUX=permissive" ]; th
     reboot
 fi
 green "Installing dependences."
-apt-get -y install nginx wget curl tar >/dev/null 2>&1
+apt-get -y install nginx wget curl tar zip unzip >/dev/null 2>&1
 systemctl enable nginx.service
 yellow "Enter your domin: "
 read domin
