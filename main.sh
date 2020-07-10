@@ -19,6 +19,7 @@ red(){
 }
 
 function configure_nginx(){
+apt-get -y install socat >/dev/null 2>&1
 cat > /etc/nginx/nginx.conf <<-EOF
 user  root;
 worker_processes  1;
@@ -47,7 +48,13 @@ http {
     }
 }
 EOF
-systemctl restart nginx.service
+systemctl stop nginx.service
+cd /usr/share/nginx/html/
+# put html pages here
+rm -rf /usr/share/nginx/html/*
+wget https://github.com/V2RaySSR/Trojan/raw/master/web.zip
+unzip web.zip
+# end 
 sleep 5
 green "Applying for a https certificate."
 mkdir /usr/src/trojan-cert
