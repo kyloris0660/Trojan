@@ -58,9 +58,10 @@ curl https://get.acme.sh | sh
 if test -s /usr/src/trojan-cert/fullchain.cer; then
     green "Certificate OK."
     green "You should be able to visit https://${domin}:443"
+fi
 }
 
-function install_trojain(){
+function install_trojan(){
 if cat /etc/issue | grep -Eqi "debian"; then
     release="debian"
 elif cat /etc/issue | grep -Eqi "ubuntu"; then
